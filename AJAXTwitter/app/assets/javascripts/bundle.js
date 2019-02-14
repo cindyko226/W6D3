@@ -86,12 +86,43 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./frontend/api_util.js":
+/*!******************************!*\
+  !*** ./frontend/api_util.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+const APIUtil = {
+    followUser: id => {
+        $.ajax({
+            method: 'POST',
+            url: `/users/${id}/follow`,
+            dataType: 'JSON',
+        });
+    },
+
+    unfollowUser: id => {
+        $.ajax({
+            method: 'DELETE',
+            url: `/users/${id}/follow`,
+            dataType: 'JSON',
+        });
+    }
+}
+
+module.exports = APIUtil;
+
+/***/ }),
+
 /***/ "./frontend/follow_toggle.js":
 /*!***********************************!*\
   !*** ./frontend/follow_toggle.js ***!
   \***********************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+const APIUtil = __webpack_require__(/*! ./api_util */ "./frontend/api_util.js");
 
 class FollowToggle {
     constructor($el) {
@@ -112,14 +143,14 @@ class FollowToggle {
     
     handleClick(e){
         e.preventDefault();
-        let methodType = this.followState ? 'DELETE' : 'POST';
-        $.ajax({
-            method: methodType,
-            url: `/users/${this.userId}/follow`,
-            dataType: 'JSON',
-        });
-        this.followState = !this.followState;
+        if(this.followState){
+            APIUtil.unfollowUser(this.userId);
+        } else {
+            APIUtil.followUser(this.userId);
+        }
+        this.followState = !this.followState
         this.render(this.$el);
+
     }
 
 } 
