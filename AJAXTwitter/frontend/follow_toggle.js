@@ -10,22 +10,36 @@ class FollowToggle {
     };
     
     render($el){
-        if(this.followState === true){
+        if(this.followState === 'followed'){
             $el.text("Unfollow!!");
-        }else{
+        }else if (this.followState === 'unfollowed'){
             $el.text("Follow!");
+        }else if(this.followState === 'following'){
+            $el.text("following");
+        }else if(this.followState === 'unfollowing'){
+            $el.text("unfollowing");
         }
+
     };
     
     handleClick(e){
         e.preventDefault();
-        if(this.followState){
-            APIUtil.unfollowUser(this.userId);
+        if(this.followState === 'followed'){
+            this.followState = 'following';
+            this.render(this.$el);
+            APIUtil.unfollowUser(this.userId).then(()=>{
+                this.followState  = this.followState === 'followed' ? 'unfollowed' : 'followed'
+                this.render(this.$el);
+            })
         } else {
-            APIUtil.followUser(this.userId);
+            this.followState = 'unfollowing';
+            this.render(this.$el);
+            APIUtil.followUser(this.userId).then(() => {
+                this.followState = this.followState === 'followed' ? 'unfollowed' : 'followed'
+                this.render(this.$el);
+            });
         }
-        this.followState = !this.followState
-        this.render(this.$el);
+        
 
     }
 

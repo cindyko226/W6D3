@@ -3,7 +3,7 @@ class FollowsController < ApplicationController
 
   def create
     # simulate latency
-    sleep(1)
+    sleep(3)
 
     @follow = current_user.out_follows.create!(followee_id: params[:user_id])
 
@@ -15,11 +15,10 @@ class FollowsController < ApplicationController
 
   def destroy
     # simulate latency
-    sleep(1)
+    sleep(3)
 
     @follow = current_user.out_follows.find_by(followee_id: params[:user_id])
     @follow.destroy!
-    puts request.referrer
     respond_to do |format|
       format.html { redirect_to request.referrer }
       format.json { render json: @follow }
