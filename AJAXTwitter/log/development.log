@@ -6000,3 +6000,86 @@ Completed 500 Internal Server Error in 3014ms (ActiveRecord: 2.7ms)
 NoMethodError - undefined method `destroy!' for nil:NilClass:
   app/controllers/follows_controller.rb:21:in `destroy'
 
+Started GET "/users/search?query=mocha" for 127.0.0.1 at 2019-02-13 17:28:34 -0800
+Processing by UsersController#search as HTML
+  Parameters: {"query"=>"mocha"}
+  Rendering users/search.html.erb within layouts/application
+  [1m[36mUser Load (3.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE (username ~ 'mocha')[0m
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "3-UzXBRUl29Jo3MEqyIyKQ"], ["LIMIT", 1]]
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "follows"."followee_id" FROM "follows" WHERE "follows"."follower_id" = $1[0m  [["follower_id", 9]]
+  Rendered follows/_form.html.erb (7.2ms)
+  Rendered users/search.html.erb within layouts/application (35.5ms)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "3-UzXBRUl29Jo3MEqyIyKQ"], ["LIMIT", 1]]
+Completed 200 OK in 279ms (Views: 272.2ms | ActiveRecord: 4.7ms)
+
+
+Started POST "/users/8/follow" for 127.0.0.1 at 2019-02-13 17:28:35 -0800
+Processing by FollowsController#create as JSON
+  Parameters: {"user_id"=>"8"}
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "3-UzXBRUl29Jo3MEqyIyKQ"], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "3-UzXBRUl29Jo3MEqyIyKQ"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFollow Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "follows" WHERE "follows"."follower_id" = $1 AND "follows"."followee_id" = 8 LIMIT $2[0m  [["follower_id", 9], ["LIMIT", 1]]
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "follows" ("followee_id", "follower_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["followee_id", 8], ["follower_id", 9], ["created_at", "2019-02-14 01:28:39.010125"], ["updated_at", "2019-02-14 01:28:39.010125"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 3021ms (Views: 0.6ms | ActiveRecord: 4.8ms)
+
+
+Started DELETE "/users/8/follow" for 127.0.0.1 at 2019-02-13 17:28:46 -0800
+Processing by FollowsController#destroy as JSON
+  Parameters: {"user_id"=>"8"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "3-UzXBRUl29Jo3MEqyIyKQ"], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "3-UzXBRUl29Jo3MEqyIyKQ"], ["LIMIT", 1]]
+  [1m[36mFollow Load (1.1ms)[0m  [1m[34mSELECT  "follows".* FROM "follows" WHERE "follows"."follower_id" = $1 AND "follows"."followee_id" = $2 LIMIT $3[0m  [["follower_id", 9], ["followee_id", 8], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[31mDELETE FROM "follows" WHERE "follows"."id" = $1[0m  [["id", 88]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 3027ms (Views: 0.5ms | ActiveRecord: 2.8ms)
+
+
+Started GET "/users/search?query=mocha" for 127.0.0.1 at 2019-02-13 17:30:46 -0800
+Processing by UsersController#search as HTML
+  Parameters: {"query"=>"mocha"}
+  Rendering users/search.html.erb within layouts/application
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE (username ~ 'mocha')[0m
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "3-UzXBRUl29Jo3MEqyIyKQ"], ["LIMIT", 1]]
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "follows"."followee_id" FROM "follows" WHERE "follows"."follower_id" = $1[0m  [["follower_id", 9]]
+  Rendered follows/_form.html.erb (4.3ms)
+  Rendered users/search.html.erb within layouts/application (21.8ms)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "3-UzXBRUl29Jo3MEqyIyKQ"], ["LIMIT", 1]]
+Completed 200 OK in 209ms (Views: 205.4ms | ActiveRecord: 2.4ms)
+
+
+Started POST "/users/8/follow" for 127.0.0.1 at 2019-02-13 17:30:48 -0800
+Processing by FollowsController#create as JSON
+  Parameters: {"user_id"=>"8"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "3-UzXBRUl29Jo3MEqyIyKQ"], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "3-UzXBRUl29Jo3MEqyIyKQ"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFollow Exists (0.7ms)[0m  [1m[34mSELECT  1 AS one FROM "follows" WHERE "follows"."follower_id" = $1 AND "follows"."followee_id" = 8 LIMIT $2[0m  [["follower_id", 9], ["LIMIT", 1]]
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "follows" ("followee_id", "follower_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["followee_id", 8], ["follower_id", 9], ["created_at", "2019-02-14 01:30:51.020278"], ["updated_at", "2019-02-14 01:30:51.020278"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Completed 200 OK in 3020ms (Views: 0.4ms | ActiveRecord: 3.8ms)
+
+
+Started POST "/users/8/follow" for 127.0.0.1 at 2019-02-13 17:32:03 -0800
+Processing by FollowsController#create as JSON
+  Parameters: {"user_id"=>"8"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "3-UzXBRUl29Jo3MEqyIyKQ"], ["LIMIT", 1]]
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "3-UzXBRUl29Jo3MEqyIyKQ"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mFollow Exists (0.6ms)[0m  [1m[34mSELECT  1 AS one FROM "follows" WHERE "follows"."follower_id" = $1 AND "follows"."followee_id" = 8 LIMIT $2[0m  [["follower_id", 9], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+Completed 422 Unprocessable Entity in 3017ms (ActiveRecord: 2.5ms)
+
+
+
+ActiveRecord::RecordInvalid - Validation failed: Follower has already been taken:
+  app/controllers/follows_controller.rb:8:in `create'
+
